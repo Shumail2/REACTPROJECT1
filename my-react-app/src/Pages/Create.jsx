@@ -33,7 +33,7 @@ const Create = () => {
   };
 
   return (
-    <div className="flex gap-10">
+    <div className="mt-5 flex gap-10">
       {/* LEFT – FORM */}
       <form
         className="w-1/2 bg-gray-900 p-6 rounded-xl shadow-xl"
