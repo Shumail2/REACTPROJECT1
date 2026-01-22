@@ -3,5 +3,8 @@
     "react-hook-dom": "^1.0.2",
     "react-hook-form": "^7.71.1",
     "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "vite": "^7.3.1"
   }
 }
