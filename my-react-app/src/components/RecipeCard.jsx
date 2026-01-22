@@ -1,21 +1,34 @@
 import { Link } from "react-router-dom";
 
-const RecipeCard = (props) => {
-  const { id, image, title, desc, chef } = props.recipe;
+const RecipeCard = ({ recipe }) => {
+  const { id, image, title, desc, chef, fav } = recipe;
 
-  return ( 
-    <Link to={`/recipes/detail/${id}`} className="duration-100 hover:scale-103 mr-3 mb-3 block w-[23vw] rounded overflow-hidden">
-      <img
-        className="object-cover w-full h-[20vh]"
-        src={image}
-        alt={title}
-      />
-      <h1 className="px-2 mt-2 font-black">{title}</h1>
-      <small className="px-2 text-red-400">{chef}</small>
-      <p className="px-2 pb-3">
-        {desc.slice(0, 100)}...
-        <small className="text-blue-400"> More</small>
-      </p>
+  return (
+    <Link
+      to={`/recipes/detail/${id}`}
+      className="mt-10 h-20vh group relative w-[100%] rounded-xl overflow-hidden bg-gray-900 shadow-lg hover:shadow-red-500/30 transition-all duration-300 hover:-translate-y-1"
+    >
+      {image && (
+        <img
+          src={image}
+          alt={title}
+          className="h-40 w-full object-cover group-hover:scale-105 transition"
+        />
+      )}
+
+      <div className="p-4">
+        <h2 className="font-bold text-lg">{title}</h2>
+        <p className="text-xs text-red-400">{chef}</p>
+
+        <p className="text-sm mt-2 text-gray-300">
+          {desc.slice(0, 80)}…
+          <span className="text-blue-400"> more</span>
+        </p>
+      </div>
+
+      {fav && (
+        <span className="absolute top-2 right-2 text-xl">❤️</span>
+      )}
     </Link>
   );
 };

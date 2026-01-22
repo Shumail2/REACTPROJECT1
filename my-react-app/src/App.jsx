@@ -3,12 +3,13 @@ import Mainroutes from "./routes/Mainroutes";
 
 const App = () => {
   return (
-    <div className="py-10 px-[10%] w-screen h-screen text-white font-thin bg-gray-800">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
       <Navbar />
-      <Mainroutes />
+      <main className="px-[8%] pb-20">
+        <Mainroutes />
+      </main>
     </div>
-  )
+  );
 };
 
 export default App;
-

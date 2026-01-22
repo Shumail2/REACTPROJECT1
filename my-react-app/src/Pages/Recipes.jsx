@@ -10,7 +10,8 @@ const Recipes = () => {
   }
 
   return (
-    <div className="flex flex-wrap gap-4">
+    <div className="grid grid-cols-4 gap-6">
+
       {/* {data.map((recipe) => (
         <RecipeCard key={recipe.id} recipe={recipe} />
       ))} */}
