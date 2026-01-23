@@ -1,19 +1,27 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { RecipeContext } from "../context/RecipeContext";
 import { toast } from "react-toastify";
 
 const SingleRecipe = () => {
-  const params = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
-
   const { data, setData } = useContext(RecipeContext);
   const { register, handleSubmit } = useForm();
 
-  const recipeIndex = data.findIndex((recipe) => params.id == recipe.id);
-
+  const recipeIndex = data.findIndex((r) => r.id == id);
   const recipe = data[recipeIndex];
+
+  if (!recipe) return <p className="text-center mt-20">Loading...</p>;
+
+  const ingrValue = Array.isArray(recipe.ingr)
+    ? recipe.ingr.join(",")
+    : "";
+
+  const instValue = Array.isArray(recipe.inst)
+    ? recipe.inst.join(",")
+    : "";
 
   const SubmitHandler = (updatedRecipe) => {
     const copyData = [...data];
@@ -21,8 +29,12 @@ const SingleRecipe = () => {
     copyData[recipeIndex] = {
       ...copyData[recipeIndex],
       ...updatedRecipe,
-      ingr: updatedRecipe.ingr ? updatedRecipe.ingr.split(",") : [],
-      inst: updatedRecipe.inst ? updatedRecipe.inst.split(",") : [],
+      ingr: updatedRecipe.ingr
+        ? updatedRecipe.ingr.split(",")
+        : [],
+      inst: updatedRecipe.inst
+        ? updatedRecipe.inst.split(",")
+        : [],
     };
 
     setData(copyData);
@@ -30,21 +42,14 @@ const SingleRecipe = () => {
     navigate("/recipes");
   };
 
-  useEffect(() => {
-    console.log("SingleRecipe mounted");
-    return () => {
-      console.log("Cleanup");
-    };
-  }, []);
-
-  if (!recipe) return "Loading...";
-
   return (
     <div className="w-full flex flex-col lg:flex-row gap-8">
       {/* LEFT – DETAILS */}
       <div className="w-full lg:w-1/2 lg:sticky top-24">
         <div className="bg-gray-900 p-6 rounded-xl shadow-xl">
-          <h1 className="text-5xl font-black mb-4">{recipe.title}</h1>
+          <h1 className="text-5xl font-black mb-4">
+            {recipe.title}
+          </h1>
 
           {recipe.image && (
             <img
@@ -54,68 +59,59 @@ const SingleRecipe = () => {
             />
           )}
 
-          <p className="mt-4 text-red-400 font-semibold">👨‍🍳 {recipe.chef}</p>
+          <p className="mt-4 text-red-400 font-semibold">
+            👨‍🍳 {recipe.chef}
+          </p>
 
-          <p className="mt-3 text-gray-300 leading-relaxed">{recipe.desc}</p>
+          <p className="mt-3 text-gray-300 leading-relaxed">
+            {recipe.desc}
+          </p>
         </div>
       </div>
-      {/* RIGHT */}
+
+      {/* RIGHT – FORM */}
       <form
-        // className="w-1/2 bg-gray-900 p-6 rounded-xl shadow-xl "
         className="w-full lg:w-1/2 bg-gray-900 p-6 rounded-xl shadow-xl"
         onSubmit={handleSubmit(SubmitHandler)}
       >
         <input
-          // className="block border-b p-2"
-          className="block w-full max-w-md mx-auto border-b p-2"
-
+          className="block w-full border-b p-2 mb-3"
           defaultValue={recipe.image}
           {...register("image")}
         />
 
         <input
-          // className="block border-b p-2"
-          className="block w-full max-w-md mx-auto border-b p-2"
-
+          className="block w-full border-b p-2 mb-3"
           defaultValue={recipe.title}
           {...register("title")}
         />
 
         <input
-          // className="block border-b p-2"
-          className="block w-full max-w-md mx-auto border-b p-2"
-
+          className="block w-full border-b p-2 mb-3"
           defaultValue={recipe.chef}
           {...register("chef")}
         />
 
         <textarea
-          // className="block border-b p-2"
-          className="block w-full max-w-md mx-auto border-b p-2"
+          className="block w-full border-b p-2 mb-3"
           defaultValue={recipe.desc}
           {...register("desc")}
         />
 
         <textarea
-          // className="block border-b p-2"
-          className="block w-full max-w-md mx-auto border-b p-2"
-          defaultValue={
-            Array.isArray(recipe.ingr) ? recipe.ingr.join(",") : recipe.ingr
-          }
+          className="block w-full border-b p-2 mb-3"
+          defaultValue={ingrValue}
           {...register("ingr")}
         />
 
         <textarea
-          // className="block border-b p-2"
-          className="block w-full max-w-md mx-auto border-b p-2"
-          defaultValue={
-            Array.isArray(recipe.inst) ? recipe.inst.join(",") : recipe.inst
-          }
+          className="block w-full border-b p-2 mb-3"
+          defaultValue={instValue}
           {...register("inst")}
         />
 
         <select
-          className="mt-5 block border-b p-2 bg-gray-700"
+          className="block w-full border-b p-2 bg-gray-800 mb-4"
           defaultValue={recipe.category}
           {...register("category")}
         >
@@ -125,38 +121,21 @@ const SingleRecipe = () => {
           <option value="dinner">Dinner</option>
         </select>
 
-        <button className="mt-5 bg-blue-900 px-4 py-2 rounded">
+        <button className="bg-blue-900 px-4 py-2 rounded">
           Update Recipe
         </button>
 
         <button
           type="button"
-          className="mt-5 ml-2 bg-red-900 px-4 py-2 rounded"
+          className="ml-3 bg-red-900 px-4 py-2 rounded"
           onClick={() => {
-            const copyData = data.filter((r) => params.id != r.id);
+            const copyData = data.filter((r) => r.id != id);
             setData(copyData);
             toast.success("Recipe deleted!");
             navigate("/recipes");
           }}
         >
           Delete Recipe
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            const copyData = [...data];
-
-            copyData[recipeIndex] = {
-              ...copyData[recipeIndex],
-              fav: !copyData[recipeIndex].fav,
-            };
-
-            setData(copyData);
-            localStorage.setItem("recipes", JSON.stringify(copyData));
-            toast.success("Favourite updated!");
-          }}
-        >
-          {recipe.fav ? "❤️ Remove from Fav" : "🤍 Add to Fav"}
         </button>
       </form>
     </div>

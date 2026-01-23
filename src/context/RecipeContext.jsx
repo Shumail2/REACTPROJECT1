@@ -1,17 +1,41 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useEffect, useState } from "react";
+import dummyRecipes from "../data/dummyRecipes";
 
-export const RecipeContext = createContext(null);
+export const RecipeContext = createContext();
 
 const RecipeProvider = ({ children }) => {
   const [data, setData] = useState([]);
 
-  // ✅ load from localStorage ONCE
   useEffect(() => {
-    const storedRecipes = localStorage.getItem("recipes");
-    if (storedRecipes) {
-      setData(JSON.parse(storedRecipes));
+    const stored = localStorage.getItem("recipes");
+
+    if (stored) {
+      const parsed = JSON.parse(stored);
+
+      // 🔥 THIS IS THE FIX
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        setData(parsed);
+      } else {
+        setData(dummyRecipes);
+        localStorage.setItem(
+          "recipes",
+          JSON.stringify(dummyRecipes)
+        );
+      }
+    } else {
+      setData(dummyRecipes);
+      localStorage.setItem(
+        "recipes",
+        JSON.stringify(dummyRecipes)
+      );
     }
-  }, []); // 👈 important: empty dependency array
+  }, []);
+
+  useEffect(() => {
+    if (Array.isArray(data) && data.length > 0) {
+      localStorage.setItem("recipes", JSON.stringify(data));
+    }
+  }, [data]);
 
   return (
     <RecipeContext.Provider value={{ data, setData }}>
