@@ -5,7 +5,7 @@ const App = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
       <Navbar />
-      <main className="px-[8%] pb-20">
+      <main className="px-4 sm:px-6 md:px-[8%] pb-20">
         <Mainroutes />
       </main>
     </div>

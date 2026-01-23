@@ -28,7 +28,7 @@ const Fav = () => {
 
 
   return (
-    <div className="grid grid-cols-3 gap-6 animate-fadeIn">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 animate-fadeIn">
 
       {favRecipes.map((recipe) => (
         <div key={recipe.id} className="border p-3 rounded">

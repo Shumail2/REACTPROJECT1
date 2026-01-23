@@ -40,9 +40,9 @@ const SingleRecipe = () => {
   if (!recipe) return "Loading...";
 
   return (
-    <div className="w-full flex gap-8">
+    <div className="w-full flex flex-col lg:flex-row gap-8">
       {/* LEFT – DETAILS */}
-      <div className="w-1/2 sticky top-24">
+      <div className="w-full lg:w-1/2 lg:sticky top-24">
         <div className="bg-gray-900 p-6 rounded-xl shadow-xl">
           <h1 className="text-5xl font-black mb-4">{recipe.title}</h1>
 
@@ -62,7 +62,7 @@ const SingleRecipe = () => {
       {/* RIGHT */}
       <form
         // className="w-1/2 bg-gray-900 p-6 rounded-xl shadow-xl "
-        className="w-1/2 bg-gray-900 p-6 rounded-xl shadow-xl"
+        className="w-full lg:w-1/2 bg-gray-900 p-6 rounded-xl shadow-xl"
         onSubmit={handleSubmit(SubmitHandler)}
       >
         <input

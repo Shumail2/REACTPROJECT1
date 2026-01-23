@@ -6,18 +6,18 @@ const RecipeCard = ({ recipe }) => {
   return (
     <Link
       to={`/recipes/detail/${id}`}
-      className="mt-10 h-20vh group relative w-[100%] rounded-xl overflow-hidden bg-gray-900 shadow-lg hover:shadow-red-500/30 transition-all duration-300 hover:-translate-y-1"
+      className="group relative w-full rounded-xl overflow-hidden bg-gray-900 shadow-lg hover:shadow-red-500/30 transition-all duration-300 hover:-translate-y-1"
     >
       {image && (
         <img
           src={image}
           alt={title}
-          className="h-40 w-full object-cover group-hover:scale-105 transition"
+          className="h-36 sm:h-40 w-full object-cover group-hover:scale-105 transition"
         />
       )}
 
       <div className="p-4">
-        <h2 className="font-bold text-lg">{title}</h2>
+        <h2 className="font-bold text-base sm:text-lg">{title}</h2>
         <p className="text-xs text-red-400">{chef}</p>
 
         <p className="text-sm mt-2 text-gray-300">
