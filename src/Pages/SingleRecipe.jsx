@@ -15,13 +15,8 @@ const SingleRecipe = () => {
 
   if (!recipe) return <p className="text-center mt-20">Loading...</p>;
 
-  const ingrValue = Array.isArray(recipe.ingr)
-    ? recipe.ingr.join(",")
-    : "";
-
-  const instValue = Array.isArray(recipe.inst)
-    ? recipe.inst.join(",")
-    : "";
+  const ingrValue = Array.isArray(recipe.ingr) ? recipe.ingr.join(",") : "";
+  const instValue = Array.isArray(recipe.inst) ? recipe.inst.join(",") : "";
 
   const SubmitHandler = (updatedRecipe) => {
     const copyData = [...data];
@@ -29,12 +24,8 @@ const SingleRecipe = () => {
     copyData[recipeIndex] = {
       ...copyData[recipeIndex],
       ...updatedRecipe,
-      ingr: updatedRecipe.ingr
-        ? updatedRecipe.ingr.split(",")
-        : [],
-      inst: updatedRecipe.inst
-        ? updatedRecipe.inst.split(",")
-        : [],
+      ingr: updatedRecipe.ingr ? updatedRecipe.ingr.split(",") : [],
+      inst: updatedRecipe.inst ? updatedRecipe.inst.split(",") : [],
     };
 
     setData(copyData);
@@ -42,9 +33,19 @@ const SingleRecipe = () => {
     navigate("/recipes");
   };
 
+  const toggleFav = () => {
+    const copyData = [...data];
+    copyData[recipeIndex] = {
+      ...copyData[recipeIndex],
+      fav: !copyData[recipeIndex].fav,
+    };
+    setData(copyData);
+    toast.success("Favourite updated!");
+  };
+
   return (
     <div className="w-full flex flex-col lg:flex-row gap-8">
-      {/* LEFT – DETAILS */}
+      {/* LEFT */}
       <div className="w-full lg:w-1/2 lg:sticky top-24">
         <div className="bg-gray-900 p-6 rounded-xl shadow-xl">
           <h1 className="text-5xl font-black mb-4">
@@ -66,10 +67,17 @@ const SingleRecipe = () => {
           <p className="mt-3 text-gray-300 leading-relaxed">
             {recipe.desc}
           </p>
+
+          <button
+            onClick={toggleFav}
+            className="mt-4 text-xl"
+          >
+            {recipe.fav ? "❤️ Remove from Fav" : "🤍 Add to Fav"}
+          </button>
         </div>
       </div>
 
-      {/* RIGHT – FORM */}
+      {/* RIGHT */}
       <form
         className="w-full lg:w-1/2 bg-gray-900 p-6 rounded-xl shadow-xl"
         onSubmit={handleSubmit(SubmitHandler)}
