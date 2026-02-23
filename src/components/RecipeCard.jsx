@@ -6,7 +6,7 @@ const RecipeCard = ({ recipe }) => {
   return (
     <Link
       to={`/recipes/detail/${id}`}
-      className="group relative w-full rounded-xl overflow-hidden bg-gray-900 shadow-lg hover:shadow-red-500/30 transition-all duration-300 hover:-translate-y-1"
+      className="group relative w-full rounded-xl overflow-hidden bg-gray-950 shadow-xl hover:shadow-red-500/30 transition-all duration-300 hover:-translate-y-1"
     >
       {image && (
         <img
@@ -18,10 +18,12 @@ const RecipeCard = ({ recipe }) => {
 
       <div className="p-4">
         <h2 className="font-bold text-base sm:text-lg">{title}</h2>
-        <p className="text-xs text-red-400">{chef}</p>
+        <p className="text-xs text-red-400">⭐ {chef}</p>
+         <p>{recipe.category}</p>
+
 
         <p className="text-sm mt-2 text-gray-300">
-          {desc.slice(0, 80)}…
+          {desc.slice(0, 40)}…
           <span className="text-blue-400"> more</span>
         </p>
       </div>

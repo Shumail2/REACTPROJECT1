@@ -14,7 +14,8 @@ const Navbar = () => {
     <nav className="sticky top-0 z-50 backdrop-blur bg-black/50">
       {/* TOP BAR */}
       <div className="flex justify-between items-center px-4 py-4 md:justify-center">
-        <h1 className="text-lg font-bold md:hidden">🍳 Recipes</h1>
+        <h1 className="text-lg font-bold md:hidden">🍽 Food Hub
+</h1>
 
         {/* HAMBURGER (mobile only) */}
         <button
@@ -26,16 +27,19 @@ const Navbar = () => {
 
         {/* DESKTOP MENU */}
         <div className="hidden md:flex gap-8">
-          <NavLink to="/" className={({ isActive }) => isActive ? `${base} text-red-400` : base}>
+          <NavLink to="/" className={({ isActive }) => isActive ? `${base} text-yellow-400` : base}>
             Home
           </NavLink>
-          <NavLink to="/recipes" className={({ isActive }) => isActive ? `${base} text-red-400` : base}>
+          <NavLink to="/recipes" className={({ isActive }) => isActive ? `${base} text-yellow-400` : base}>
             Recipes
           </NavLink>
-          <NavLink to="/create" className={({ isActive }) => isActive ? `${base} text-red-400` : base}>
+          <NavLink to="/create" className={({ isActive }) => isActive ? `${base} text-yellow-400` : base}>
             Create
           </NavLink>
-          <NavLink to="/fav" className={({ isActive }) => isActive ? `${base} text-red-400` : base}>
+          <NavLink to="/about" className={({ isActive }) => isActive ? `${base} text-yellow-400` : base}>
+            About
+          </NavLink>
+          <NavLink to="/favorites" className={({ isActive }) => isActive ? `${base} text-yellow-400` : base}>
             Fav ❤️
             {favCount > 0 && (
               <span className="ml-1 text-xs bg-red-500 px-2 rounded-full">
@@ -58,7 +62,7 @@ const Navbar = () => {
           <NavLink onClick={() => setOpen(false)} to="/create" className={base}>
             Create
           </NavLink>
-          <NavLink onClick={() => setOpen(false)} to="/fav" className={base}>
+          <NavLink onClick={() => setOpen(false)} to="/favorites" className={base}>
             Fav ❤️ ({favCount})
           </NavLink>
         </div>

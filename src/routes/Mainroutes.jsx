@@ -16,7 +16,8 @@ export const Mainroutes = () => {
   <Route path="/about" element={<About />} />
   <Route path="/create" element={<Create />} />
   <Route path="*" element={<PageNotFound />} />
-  <Route path="/fav" element={<Fav />} />
+  <Route path="/favorites" element={<Fav />} />
+  {/* <Route path="/contact" element={<About />} /> */}
   
 </Routes>
   )

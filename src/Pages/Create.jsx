@@ -19,6 +19,7 @@ const Create = () => {
     const newRecipe = {
       ...recipe,
       id: Date.now().toString(),
+      chef: recipe.chef?.trim() ? recipe.chef : "Unknown Chef",
       ingr: recipe.ingr ? recipe.ingr.split(",") : [],
       inst: recipe.inst ? recipe.inst.split(",") : [],
       fav: false,
@@ -29,12 +30,14 @@ const Create = () => {
 
     toast.success("Recipe created!");
     navigate("/recipes");
+    // ✅ Task 3: scroll to top
+    window.scrollTo(0, 0);
   };
 
   return (
     <div className="flex flex-col lg:flex-row gap-8">
       {/* LIVE PREVIEW */}
-      <div className="w-full lg:w-1/2 bg-gray-900 p-6 rounded-xl shadow-xl">
+      <div className="w-full lg:w-1/2 bg-gray-950 p-6 rounded-xl shadow-xl">
         <h2 className="text-4xl font-black mb-4">
           {title || "Recipe Title"}
         </h2>
@@ -59,7 +62,7 @@ const Create = () => {
       {/* FORM */}
       <form
         onSubmit={handleSubmit(SubmitHandler)}
-        className="w-full lg:w-1/2 bg-gray-900 p-6 rounded-xl shadow-xl"
+        className="w-full lg:w-1/2 bg-gray-950 p-6 rounded-xl shadow-xl"
       >
         <input
           {...register("image")}
@@ -68,7 +71,7 @@ const Create = () => {
         />
 
         <input
-          {...register("title")}
+          {...register("title", { required: true })}
           placeholder="Title"
           className="block w-full border-b p-2 mb-3"
         />
@@ -99,7 +102,7 @@ const Create = () => {
 
         <select
           {...register("category")}
-          className="block w-full border-b p-2 bg-gray-800 mb-4"
+          className="block w-full border-b p-2 bg-gray-900 mb-4"
         >
           <option value="breakfast">Breakfast</option>
           <option value="lunch">Lunch</option>
@@ -107,7 +110,7 @@ const Create = () => {
           <option value="dinner">Dinner</option>
         </select>
 
-        <button className="bg-blue-900 px-4 py-2 rounded">
+        <button className="bg-blue-950 px-4 py-2 rounded">
           Create Recipe
         </button>
       </form>

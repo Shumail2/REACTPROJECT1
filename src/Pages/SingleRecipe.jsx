@@ -46,8 +46,8 @@ const SingleRecipe = () => {
   return (
     <div className="w-full flex flex-col lg:flex-row gap-8">
       {/* LEFT */}
-      <div className="w-full lg:w-1/2 lg:sticky top-24">
-        <div className="bg-gray-900 p-6 rounded-xl shadow-xl">
+      <div className="w-full lg:w-5/2 lg:sticky top-24">
+        <div className="bg-gray-950 p-6 rounded-xl shadow-xl">
           <h1 className="text-5xl font-black mb-4">
             {recipe.title}
           </h1>
@@ -72,14 +72,14 @@ const SingleRecipe = () => {
             onClick={toggleFav}
             className="mt-4 text-xl"
           >
-            {recipe.fav ? "❤️ Remove from Fav" : "🤍 Add to Fav"}
+            {recipe.fav ? "❤️ Favourite" : "🤍 Not Favourite"}
           </button>
         </div>
       </div>
 
       {/* RIGHT */}
       <form
-        className="w-full lg:w-1/2 bg-gray-900 p-6 rounded-xl shadow-xl"
+        className="w-full lg:w-4/2 bg-gray-950 p-6 rounded-xl shadow-xl"
         onSubmit={handleSubmit(SubmitHandler)}
       >
         <input
@@ -119,7 +119,7 @@ const SingleRecipe = () => {
         />
 
         <select
-          className="block w-full border-b p-2 bg-gray-800 mb-4"
+          className="block w-full border-b p-2 bg-gray-900 mb-4"
           defaultValue={recipe.category}
           {...register("category")}
         >
@@ -129,13 +129,13 @@ const SingleRecipe = () => {
           <option value="dinner">Dinner</option>
         </select>
 
-        <button className="bg-blue-900 px-4 py-2 rounded">
+        <button className="bg-blue-950 px-4 py-2 rounded">
           Update Recipe
         </button>
 
         <button
           type="button"
-          className="ml-3 bg-red-900 px-4 py-2 rounded"
+          className="ml-3 bg-red-950 px-4 py-2 rounded"
           onClick={() => {
             const copyData = data.filter((r) => r.id != id);
             setData(copyData);
